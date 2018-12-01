@@ -1,0 +1,10 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+    <h1>Delete: {{ question.question_text}}??</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a class="btn btn-default" href="{% url 'polls:detail' pk=question.pk %}">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<h1>Welcome to Polls!!</h1>
+    {% if user.is_authenticated %}
+        <h3>RECENT POLLS</h3>
+        <hr>
+        <h2>QUESTION</h2>
+        {% if latest_question_list %}
+            <ul>
+                {% for question in latest_question_list %}
+                <!-- <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li> -->
+                <li><label><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> </label></li>
+
+                
+                {% endfor %}
+                
+            </ul>
+            {% else %}
+                <p>No polls are available.</p>
+        {% endif %}
+    {% else %}
+    
+    <h3>Login Or SignUp To Begin</h3>
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}"> {{ choice.choice_text }}-- {{ choice.votes }} vote{{ choice.votes|pluralize }}</label><br>
+{% endfor %}
+<input class='btn btn-default' type="submit" value="Vote">
+{% if user.is_authenticated %}
+<a class='btn btn-warning' href="{% url 'polls:update' pk=question.pk %}">Update</a>
+<a class='btn btn-danger' href="{% url 'polls:delete' pk=question.pk %}">Delete</a>
+
+{% endif%}
+
+
+</form>
+<p>
+
+</p>
+{% endblock %}
